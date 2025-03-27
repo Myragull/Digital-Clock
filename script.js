@@ -1,27 +1,24 @@
-let timeContsiner= document.querySelector(".container");
-let timePara= document.querySelector(".time-para");
-let now = new Date();
-let hours =now.getHours();
-let minutes = now.getMinutes();
-let seconds = now.getSeconds();
+let timeP = document.querySelector(".time-para");
 
-function displayTime(){
-    if (hours<10 ){
-        hours = '0'+ hours;
-    }
-    if (minutes<10 ){
-        minutes = '0'+ minutes;
-    }
-    if (seconds<10 ){
-        seconds = '0'+ seconds;
-    }
-    let intervalId = setInterval(() => {
-        // console.log(seconds++);
-        timePara.innerHTML= `${hours}   :   ${minutes}   :     ${seconds++}   `;
-        if (seconds === 61){
-                    clearInterval(intervalId);
-                }
-    }, 1000);
+function displayTime() {
+    let now = new Date();
+    let timeString = now.toTimeString().split(" ")[0]; // Get HH:MM:SS format
+    let dateString = now.toDateString();
+    console.log(dateString);
+    timeP.innerText = timeString;
 }
 
-displayTime();
+setInterval(displayTime, 1000);
+
+let toggleBtn = document.getElementById("toggle-btn");
+
+toggleBtn.addEventListener('click', (e) => {
+    const html = document.querySelector('html')
+    if (html.classList.contains('dark-theme')) {
+        html.classList.remove('dark-theme')
+        e.target.innerHTML = 'Dark mode'
+    } else {
+        html.classList.add('dark-theme')
+        e.target.innerHTML = 'Light mode'
+    }
+})
