@@ -1,24 +1,22 @@
-let timeP = document.querySelector(".time-para");
+const timeP = document.querySelector(".time-para");
+const toggleBtn = document.getElementById("toggle-btn");
+const savedTheme=localStorage.getItem("theme");
+
+document.body.classList.toggle("dark-theme", savedTheme === "dark-theme");
+toggleBtn.innerText = savedTheme === "dark-theme" ? "Light mode" : "Dark mode";
 
 function displayTime() {
     let now = new Date();
-    let timeString = now.toTimeString().split(" ")[0]; // Get HH:MM:SS format
-    let dateString = now.toDateString();
-    console.log(dateString);
+    let timeString = now.toTimeString().split(" ")[0]; 
     timeP.innerText = timeString;
 }
 
 setInterval(displayTime, 1000);
 
-let toggleBtn = document.getElementById("toggle-btn");
-
 toggleBtn.addEventListener('click', (e) => {
-    const html = document.querySelector('html')
-    if (html.classList.contains('dark-theme')) {
-        html.classList.remove('dark-theme')
-        e.target.innerHTML = 'Dark mode'
-    } else {
-        html.classList.add('dark-theme')
-        e.target.innerHTML = 'Light mode'
-    }
-})
+    const body = document.querySelector('body');
+    body.classList.toggle("dark-theme");
+    const currentTheme= body.classList.contains("dark-theme")?"dark-theme":"light-theme";
+     localStorage.setItem("theme", currentTheme);
+    e.target.innerText = body.classList.contains("dark-theme") ? "Light mode" : "Dark mode";
+  });
